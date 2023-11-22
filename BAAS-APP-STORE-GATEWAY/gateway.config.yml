@@ -1,0 +1,92 @@
+# CreatedBy    : Dinesh
+# CreatedTime  : June 19 2023
+# ModifiedBy   : Dinesh
+# ModifiedTime : June 19 2023
+
+http:
+  port: 4001
+admin:
+  port: 9876
+  host: localhost
+
+# Adding all the paths to allow for remote services
+apiEndpoints:
+  baasPlatformGatewayPath:
+    paths:
+      [
+        "/api/rest/platform/*",
+      ]
+  baasAppStoreRestBusinessPath:
+    paths:
+      [
+        "/api/rest/appstore/business/*",
+      ]
+
+# Adding the host/ port of all the remote services
+serviceEndpoints:
+  baasPlatformGatewayBaseURL:
+    url: "http://platformgateway-container:4000"
+  baasAppStoreRestBusinessBaseURL:
+    url: "http://baasappstorerestbusiness-container:5003"
+
+# Adding policies
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+  - jwt
+  - request-transformer
+
+# Adding pipelines to all the remote services
+pipelines:
+  baasPlatformGatewayPipeline:
+    apiEndpoints:
+      - baasPlatformGatewayPath
+    policies:
+      - cors:
+        - action:
+            origin: "*"
+            credentials: true
+      - rate-limit:
+          - action:
+              max: 50
+              windowMs: 1000
+              message: 'Too many requests, please try again later.'
+
+      - request-transformer:
+          - action:
+              headers:
+                add:
+                  authorization: "'Basic UVAwMTkyOTIzMjMyTEQ6OTI3TkJHSkowMjgzSEtBNzQ3ODI='"
+      - proxy:
+          - action:
+              serviceEndpoint: baasPlatformGatewayBaseURL
+              changeOrigin: true
+
+  baasAppStoreRestBusinessPipeline:
+    apiEndpoints:
+      - baasAppStoreRestBusinessPath
+    policies:
+      - cors:
+        - action:
+            origin: "*"
+            credentials: true
+      - rate-limit:
+          - action:
+              max: 50
+              windowMs: 1000
+              message: 'Too many requests, please try again later.'
+      - request-transformer:
+          - action:
+              headers:
+                add:
+                  authorization: "'Basic UVAwMTkyOTIzMjMyTEQ6OTI3TkJHSkowMjgzSEtBNzQ3ODI='"
+      - proxy:
+          - action:
+              serviceEndpoint: baasAppStoreRestBusinessBaseURL
+              changeOrigin: true

@@ -1,0 +1,31 @@
+module.exports = class AppStore {
+    APPLICATION = {
+        APPLICATION_KEY: "624bbc7c-ee5a-4269-9630-a6e4423ada0b",
+        APPLICATION_SERVICE_KEY: "7af9412e-7431-4e3a-aeee-dbd545bdb66b"
+    }
+    INSTANCE = {
+        INSTANCE_KEY: "56feaf35-58fb-41d4-8b3c-c3d1b8ff36f9"
+    }
+    SERVICE = {
+        SERVICE_KEY: "SERVICE-KEY"
+    }
+    PLATFORM = {
+        PLATFORM_GATEWAY_URL: "http://209.12.79.113:4000",
+        PLATFORM_GATEWAY_URL_SERVER: "http://10.104.4.61:4000", // NEED TO REMOVE THIS ONCE IP CONFIG IS FIXED IN SERVER
+        PLATFORM_GATEWAY_USERNAME: "L423423dfwer23r",
+        PLATFORM_GATEWAY_PASSWORD: "023482348fddskjfwe"
+    }
+    APP_STORE = {
+        // APP_STORE_GATEWAY_URL: "http://localhost:4003",
+        APP_STORE_GATEWAY_URL: "http://209.12.79.113:4001",
+        APP_STORE_GATEWAY_URL_SERVER: "http://10.104.4.61:4001", // NEED TO REMOVE THIS ONCE IP CONFIG IS FIXED IN SERVER
+        APP_STORE_GATEWAY_USERNAME: "L423423dfwer23r",
+        APP_STORE_GATEWAY_PASSWORD: "023482348fddskjfwe"
+    }
+    AUTH = {
+        AUTH_GATEWAY_URL: "http://dev1.baas360.alitasys.com:4003",
+        AUTH_GATEWAY_URL_SERVER: "http://10.104.4.61:4003",
+        AUTH_GATEWAY_USERNAME: "L423423dfwer23r",
+        AUTH_GATEWAY_PASSWORD: "023482348fddskjfwe"
+    }
+}
